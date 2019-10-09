@@ -1,6 +1,7 @@
 package util;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 /** Implements a vector with *named* indices.  For example { x=1.0 y=2.0 } is a 2D
  *  vector with the first dimension named "x" and the second dimension named "y"
@@ -82,6 +83,7 @@ public class Vector {
 	 */
 	public double computeL2Norm() {
 		// TODO: this method should not be empty!
+		return 0.0;
 	}
 
 	/**
