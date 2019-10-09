@@ -84,6 +84,28 @@ public class Vector {
 		// TODO: this method should not be empty!
 	}
 
+	/**
+	 * perform vector sum and return a new vector as results
+	 * @param y
+	 * @return Vector
+	 * @throws VectorException
+	 */
+	public Vector sum(Vector y) throws VectorException {
+		// TODO: this method should not be empty!
+		return null;
+	}
+
+	/**
+	 * perform vector scalar multiplication and return a new vector as results
+	 * @param scalar
+	 * @return Vector
+	 */
+	public Vector scalarMult(double scalar) {
+		// TODO: this method should not be empty!
+
+		return null;
+	}
+
 	///////////////////////////////////////////////////////////////////////////////
 	// TODO: Add your methods here!  You'll need more than those above to make
 	//       main() work below.
