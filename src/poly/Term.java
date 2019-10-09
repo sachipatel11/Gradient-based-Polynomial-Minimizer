@@ -15,9 +15,9 @@ import util.Vector;
 public class Term {
 	
 	// For term 2.1*x^4*y*z^2, the data members would take values as follows:
-	private double _coef; // = 2.1
-	private ArrayList<String>  _vars; // = ["x", "y", "z"]
-	private ArrayList<Integer> _pows; // = [4, 1, 2]
+	public double _coef; // = 2.1
+	public ArrayList<String>  _vars; // = ["x", "y", "z"]
+	public ArrayList<Integer> _pows; // = [4, 1, 2]
 
 	/** This constructor has been implemented for you.
 	 * 

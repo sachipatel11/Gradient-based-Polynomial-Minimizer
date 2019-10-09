@@ -14,7 +14,7 @@ import java.util.HashMap;
  */
 public class Vector {
 
-	private HashMap<String,Double> _hmVar2Value; // This maps dimension variable names to values
+	public HashMap<String,Double> _hmVar2Value; // This maps dimension variable names to values
 	
 	/** Constructor of an initially empty Vector
 	 * 
@@ -33,6 +33,20 @@ public class Vector {
 		// TODO: this method should not be empty! 
 		// Hint: you're going to have use String.split used in Project2.
 	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder("{ ");
+		Iterator var3 = this._hmVar2Value.keySet().iterator();
+
+		while(var3.hasNext()) {
+			String key = (String)var3.next();
+			sb.append(String.format("%s=%6.4f ", key, this._hmVar2Value.get(key)));
+		}
+
+		sb.append("}");
+		return sb.toString();
+	}
+
 
 	/** Removes (clears) all (key,value) pairs from the Vector representation
 	 * 
@@ -60,6 +74,14 @@ public class Vector {
 	public void setAll(Vector x) {
 		// TODO: this method should not be empty! 
 		// Hint: look very carefully at the available methods of HashMap... this is a one liner!
+	}
+
+	/**
+	 * Compute the norm value of the vectors
+	 * @return double value represents the norm of the vector
+	 */
+	public double computeL2Norm() {
+		// TODO: this method should not be empty!
 	}
 
 	///////////////////////////////////////////////////////////////////////////////

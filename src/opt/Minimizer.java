@@ -15,17 +15,17 @@ import util.Vector;
  */
 public class Minimizer {
 	
-	private double _eps;			// tolerance
-	private int    _maxIter;		// maximum number of iterations
-	private double _stepSize;		// step size alpha
-	private Vector _x0;	   		// starting point
-	private Vector _lastx; 		// last point found
-	private double _lastObjVal;		// last obj fn value found
-	private double _lastGradNorm;   // last gradient norm found
-	private long _compTime;			// computation time needed
-	private int _nIter;				// no. of iterations needed
+	public double _eps;			// tolerance
+	public int    _maxIter;		// maximum number of iterations
+	public double _stepSize;		// step size alpha
+	public Vector _x0;	   		// starting point
+	public Vector _lastx; 		// last point found
+	public double _lastObjVal;		// last obj fn value found
+	public double _lastGradNorm;   // last gradient norm found
+	public long _compTime;			// computation time needed
+	public int _nIter;				// no. of iterations needed
 
-	private HashMap<String,Polynomial> _var2gradp; // cached Polynomials for gradient expressions
+	public HashMap<String,Polynomial> _var2gradp; // cached Polynomials for gradient expressions
 
 	/** Default constructor -- you may want to add to it, but you don't have to
 	 * 

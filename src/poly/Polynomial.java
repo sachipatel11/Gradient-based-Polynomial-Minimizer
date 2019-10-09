@@ -14,7 +14,7 @@ import util.Vector;
  */
 public class Polynomial {
 
-	private ArrayList<Term> _terms; // The Polynomial is the sum of these Terms
+	public ArrayList<Term> _terms; // The Polynomial is the sum of these Terms
 
 	/** This constructor has been implemented for you.  It simply initializes an
 	 *  empty term list.
