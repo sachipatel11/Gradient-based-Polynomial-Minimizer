@@ -6,6 +6,7 @@ Please see the assignment description posted on Quercus for instructions.
 The following method/constructor will be tested by auto grader. Changing these method name or parameters will resulted in compilation error. If you are worried about breaking the passivity of your code, please confirm with TA for the original method signiature. 
 
 Vector Class:
+public HashMap<String,Double> _hmVar2Value    
 public Vector()   
 public Vector(String s)   
 public String toString()   
@@ -17,6 +18,9 @@ public Vector sum(Vector y) throws VectorException
 public Vector scalarMult(double scalar)   
    
 Term Class:   
+public double _coef    
+public ArrayList<String>  _vars    
+public ArrayList<Integer> _pows    
 public Term(double coef)   
 public Term(String s) throws PolyException   
 public String toString()   
@@ -25,6 +29,7 @@ public double evaluate(Vector assignments) throws PolyException
 public Term differentiate(String var)    
    
 Polynomial Class:   
+public ArrayList<Term> _terms     
 public Polynomial()   
 public Polynomial(String s) throws PolyException   
 public String toString()   
@@ -34,6 +39,15 @@ public double evaluate(Vector assignments) throws Exception
 public Polynomial differentiate(String var)   
    
 Minimizer Class:   
+public double _eps;			// tolerance
+public int    _maxIter;		// maximum number of iterations
+public double _stepSize;		// step size alpha
+public Vector _x0;	   		// starting point
+public Vector _lastx; 		// last point found
+public double _lastObjVal;		// last obj fn value found
+public double _lastGradNorm;   // last gradient norm found
+public long _compTime;			// computation time needed
+public int _nIter;				// no. of iterations needed
 public Minimizer()    
 public double getEps()   
 public int getMaxIter()   
