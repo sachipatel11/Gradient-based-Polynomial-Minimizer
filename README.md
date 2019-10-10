@@ -6,8 +6,8 @@ Please see the assignment description posted on Quercus for instructions.
 The following method/constructor will be tested by auto grader. Changing these method name or parameters will resulted in compilation error. If you are worried about breaking the passivity of your code, please confirm with TA for the original method signiature. 
 
 Vector Class:
-public Vector()
-public Vector(String s)
+public Vector()   
+public Vector(String s)   
 public String toString()
 public void clear()
 public void set(String var, double val)
