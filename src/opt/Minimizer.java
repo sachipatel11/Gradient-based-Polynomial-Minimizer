@@ -75,8 +75,15 @@ public class Minimizer {
 	 */
 	public void minimize(Polynomial p) throws Exception {
 			
-		// TODO: Build the partial derivatives of p for all variables in p
-		
+		// TODO: Build the partial derivatives of p for all variables in p 
+                //HashMap<String,Polynomial> parDer = new HashMap<String,Polynomial>();
+                _var2gradp = new HashMap<String,Polynomial>();
+                Polynomial der = new Polynomial();
+                for (String var : p.getAllVars()){
+                    der = p.differentiate(var);
+                    _var2gradp.put(var,der); 
+                }
+                        
 		// Start the gradient descent
 		_nIter = 0;
 		long start = System.currentTimeMillis();
@@ -87,15 +94,34 @@ public class Minimizer {
 		_lastObjVal = p.evaluate(_x0);
 		
 		_lastGradNorm = Double.MAX_VALUE;
-		
+		 
 		// TODO: Main descent loop
 		//	while (iterations is less than maximum iterations allowed AND gradient norm is greater than eps) {
 		//	  increment iterations
 		//	  compute gradient and gradient norm
 		//	  compute new point by adding current point and the negation of the step size times the gradient
 		//	  evaluate the objective at the new point
-		//	  print iteration number, new point, objective at new point, i.e.
-		//      System.out.format("At iteration %d: %s objective value = %.3f\n", _nIter, _lastx, _lastObjVal);
+                
+                
+                HashMap<String,Double> grad = new HashMap<String,Double>();
+                while ((_nIter<_maxIter) && (_lastGradNorm > _eps)){
+                    Vector gradient = new Vector();
+                    _nIter++;
+                    //computing gradient and putting values in a new vector
+                    for (String key: _var2gradp.keySet()){
+                        gradient.set(key,_var2gradp.get(key).evaluate(_lastx));
+                        //grad.put(key,_var2gradp.get(key).evaluate(_lastx)); 
+                    }
+                    //computing gradient norm
+                    _lastGradNorm= gradient.computeL2Norm();
+                    //compute new point
+                    _lastx = _lastx.sum(gradient.scalarMult((-1)*_stepSize));
+                    //evaluate objective at new point
+                    _lastObjVal = p.evaluate(_lastx);
+                  //print iteration number, new point, objective at new point, i.e.
+		    System.out.format("At iteration %d: %s objective value = %.3f\n", _nIter, _lastx, _lastObjVal);
+                }
+
 		//	}
 			
 		// Record the end time

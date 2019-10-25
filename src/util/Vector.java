@@ -15,7 +15,7 @@ import java.util.Iterator;
  */
 public class Vector {
 
-	public HashMap<String,Double> _hmVar2Value; // This maps dimension variable names to values
+	public HashMap<String,Double> _hmVar2Value; // This maps dimension variable names to values (creating a hashmap with that name)
 	
 	/** Constructor of an initially empty Vector
 	 * 
@@ -23,6 +23,7 @@ public class Vector {
 	public Vector() {
 		// TODO: this method should not be empty! 
 		// Hint: is there any memory you want to allocate?
+                _hmVar2Value = new HashMap<String,Double>();
 	}
 
 	/** Constructor that parses a String s like "{ x=-1 y=-2.0 z=3d }" into 
@@ -33,6 +34,21 @@ public class Vector {
 	public Vector(String s) {
 		// TODO: this method should not be empty! 
 		// Hint: you're going to have use String.split used in Project2.
+                _hmVar2Value = new HashMap<String,Double>();
+                
+                String []s1=s.split("\\s");
+                
+                for (String element: s1){
+                    //s1 = s.trim().split("\\s+");
+                    //System.out.println(element);
+                    String []keyval = element.split("=");
+                    //System.out.println(keyval[0]);
+                    if (keyval.length ==2) {
+                    _hmVar2Value.put(keyval[0],Double.valueOf(keyval[1]));  
+                    }
+                }
+                
+                
 	}
 
 	public String toString() {
@@ -55,6 +71,7 @@ public class Vector {
 	public void clear() {
 		// TODO: this method should not be empty! 
 		// Hint: look very carefully at the available methods of HashMap... this is a one liner!
+                _hmVar2Value.clear();
 	}
 
 	/** Sets a specific var to the value val in *this*, i.e., var=val
@@ -65,7 +82,9 @@ public class Vector {
 	public void set(String var, double val) {
 		// TODO: this method should not be empty! 
 		// Hint: look very carefully at the available methods of HashMap... this is a one liner!
-	}
+                this._hmVar2Value.put(var, val);
+        }
+        
 
 	/** Sets all entries in *this* Vector to match entries in x
 	 *  (if additional variables are in *this*, they remain unchanged) 
@@ -75,7 +94,8 @@ public class Vector {
 	public void setAll(Vector x) {
 		// TODO: this method should not be empty! 
 		// Hint: look very carefully at the available methods of HashMap... this is a one liner!
-	}
+                this._hmVar2Value.putAll(x._hmVar2Value);
+	}       
 
 	/**
 	 * Compute the norm value of the vectors
@@ -83,7 +103,11 @@ public class Vector {
 	 */
 	public double computeL2Norm() {
 		// TODO: this method should not be empty!
-		return 0.0;
+                double sum=0;
+                for (Double value: this._hmVar2Value.values()){
+                    sum += value*value;
+        }
+                return Math.sqrt(sum) ;
 	}
 
 	/**
@@ -92,9 +116,18 @@ public class Vector {
 	 * @return Vector
 	 * @throws VectorException
 	 */
+        //create a new vector object
+        //loop through the hashmap and add values from this and the given vector y 
+        //return sum in new vector (hashmap)
 	public Vector sum(Vector y) throws VectorException {
 		// TODO: this method should not be empty!
-		return null;
+                double sum=0;
+                Vector sumVec = new Vector();
+                for (String elem: this._hmVar2Value.keySet()){
+                    sum=(this._hmVar2Value.get(elem)+y._hmVar2Value.get(elem));
+                    sumVec.set(elem,sum);
+                }
+		return sumVec;
 	}
 
 	/**
@@ -104,10 +137,33 @@ public class Vector {
 	 */
 	public Vector scalarMult(double scalar) {
 		// TODO: this method should not be empty!
-
-		return null;
+                double scal;
+                Vector scalVec = new Vector();
+                for (String key: this._hmVar2Value.keySet()){
+                    scal=this._hmVar2Value.get(key)*scalar;
+                    scalVec.set(key,scal);
+                }
+		return scalVec;
 	}
-
+        @Override
+        public boolean equals (Object o){
+            if (o instanceof Vector) {
+		Vector v = (Vector)o;
+                
+                if (this._hmVar2Value.size() != v._hmVar2Value.size()){
+                    return false;
+                }
+                for (String key: this._hmVar2Value.keySet()){
+                    if (!this._hmVar2Value.get(key).equals(v._hmVar2Value.get(key))){
+                        return false;
+                    }
+                }return true;
+                        
+            }else{ 
+                return false;
+            }
+              
+        }
 	///////////////////////////////////////////////////////////////////////////////
 	// TODO: Add your methods here!  You'll need more than those above to make
 	//       main() work below.
@@ -145,7 +201,7 @@ public class Vector {
 		//       ... you may want to use this in your Vector.toString() implementation!
 		
 		// Test cases: 
-		System.out.println(vec1); // Should print: { x=1.0000 y=2.0000 z=3.0000 }
+                System.out.println(vec1); // Should print: { x=1.0000 y=2.0000 z=3.0000 }
 		System.out.println(vec2); // Should print: { x=-3.0000 y=-2.0000 z=-1.0000 }
 		System.out.println(vec3); // Should print: { x=-1.0000 y=-2.0000 z=3.0000 }
 		System.out.println(vec4); // Should print: { x=-1.0000 y=-2.0000 z=3.0000 }
@@ -163,5 +219,6 @@ public class Vector {
 		System.out.println(vec3.equals(vec3)); // Should print: true
 		System.out.println(vec3.equals(vec4)); // Should print: true
 		System.out.println(vec1.sum(vec2).equals(vec2.sum(vec1))); // Should print: true
+                //System.out.print
 	}	
 }

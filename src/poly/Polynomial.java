@@ -1,8 +1,11 @@
 package poly;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.TreeSet;
+
 
 import util.Vector;
 
@@ -71,10 +74,21 @@ public class Polynomial {
 	 * @return
 	 * @throws PolyException if there were any errors reading or parsing the file
 	 */
-	public static Polynomial ReadPolynomial(File file) throws PolyException {
+	public static Polynomial ReadPolynomial(File file) throws PolyException{
 
 		// TODO: Should not return null!
-		return null;
+                try{
+                    BufferedReader fin = new BufferedReader(new FileReader(file));
+                    String line = fin.readLine();
+                    fin.close();
+                    Polynomial pol = new Polynomial(line);
+                    return pol;
+                }
+                catch (Exception e){
+                    throw new PolyException("Error, could not read file.");
+                    
+                    
+                }
 	}
 	
 	/** Returns all of the variables used in this Polynomial as a sorted set (TreeSet).
@@ -84,7 +98,18 @@ public class Polynomial {
 	public TreeSet<String> getAllVars() {
 
 		// TODO: Should not return null!
-		return null;
+                //make a treeset to return 
+                TreeSet<String> vars= new TreeSet<String>();
+                //loop through the arraylist containing term objects 
+                for (Term term1: _terms){
+                    //loop through the term's _vars arraylist to get variable
+                    for (int i=0;i<term1._vars.size();i++){
+                        //add variable to treeset 
+                        vars.add(term1._vars.get(i));
+                    }
+                    
+                }return vars;
+		
 	}
 	
 	/** If Polynomial defines f(x,y) = 2xy^2 + xy and assignments is { x=2.0 y=3.0 } 
@@ -100,7 +125,15 @@ public class Polynomial {
 	public double evaluate(Vector assignments) throws Exception {
 
 		// TODO: Should not return 0!
-		return 0;
+                try {
+                double ans=0;
+		for (Term term1 : _terms){
+                    ans += term1.evaluate(assignments);
+                }return ans;
+                } catch (Exception e) {
+                  throw new PolyException("Error"); 
+                
+                }
 	}
 
 	/** If Polynomial defines a function f(.) then this method returns the **symbolic**
@@ -118,7 +151,18 @@ public class Polynomial {
 	public Polynomial differentiate(String var) {
 
 		// TODO: Should not return null!
-		return null;
+                Polynomial derivativePol= new Polynomial();
+                
+                for (Term term1 : _terms){
+                    Term derivativeTerm = new Term(term1._coef);
+                    derivativeTerm = term1.differentiate(var);
+                    if (derivativeTerm._coef != 0.0d){
+                       derivativePol._terms.add(derivativeTerm); 
+                    }
+                    
+                   
+                }
+		return derivativePol ;
 	}
 
 	/** Some examples testing the Polynomial and Term classes with expected output.
@@ -134,6 +178,7 @@ public class Polynomial {
 	 */
 	public static void main(String[] args) throws Exception {
 		Polynomial p  = new Polynomial("x^2 + y^2 + -4*x*y + 8");
+                
 		Polynomial p2 = new Polynomial(p.toString()); // See if we can reparse p.toString()
 		Polynomial dp_dx = p.differentiate("x");
 		Polynomial dp_dy = p.differentiate("y");
@@ -142,7 +187,7 @@ public class Polynomial {
 		Vector x0 = new Vector();
 		x0.set("x", 1.0);
 		x0.set("y", 2.0);
-		
+		//System.out.println(x0);
 		// Test polynomial functionality
 		System.out.println("Polynomial: " + p);     // Should print "1.000*x^2 + 1.000*y^2 + -4.000*x*y + 8.000"
 		System.out.println("Re-parsed:  " + p2);    // Should print "1.000*x^2 + 1.000*y^2 + -4.000*x*y + 8.000"
