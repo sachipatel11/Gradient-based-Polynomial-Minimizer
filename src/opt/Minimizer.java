@@ -77,6 +77,7 @@ public class Minimizer {
 			
 		// TODO: Build the partial derivatives of p for all variables in p 
                 //HashMap<String,Polynomial> parDer = new HashMap<String,Polynomial>();
+                
                 _var2gradp = new HashMap<String,Polynomial>();
                 Polynomial der = new Polynomial();
                 for (String var : p.getAllVars()){

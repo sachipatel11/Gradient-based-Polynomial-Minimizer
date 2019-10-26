@@ -121,13 +121,19 @@ public class Vector {
         //return sum in new vector (hashmap)
 	public Vector sum(Vector y) throws VectorException {
 		// TODO: this method should not be empty!
+                if (this._hmVar2Value.size() != y._hmVar2Value.size()){
+                    throw new VectorException ("Unequal vector sizes.");
+                }
+                else {
                 double sum=0;
                 Vector sumVec = new Vector();
                 for (String elem: this._hmVar2Value.keySet()){
                     sum=(this._hmVar2Value.get(elem)+y._hmVar2Value.get(elem));
                     sumVec.set(elem,sum);
                 }
-		return sumVec;
+                    return sumVec; 
+                }
+                
 	}
 
 	/**
